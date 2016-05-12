@@ -1,7 +1,8 @@
-Love locks on Ethereum
-######################
+========================
+ Love locks on Ethereum
+========================
 
-:date: 2016-05-09 20:00
+:date: 2016-05-12 20:00
 :category: ethereum
 :status: draft
 
@@ -19,7 +20,6 @@ Every participant should be on the same LAN, install `geth`_ and run :
   geth --identity <ID> --genesis <GENESIS.JSON> --datadir <DATADIR> --networkid 9891 \
        --ipcpath "~/.ethereum/geth.ipc" \
        --nodiscover \
-       --rpc --rpcport "8080" --rpccorsdomain "*" --rpcapi "db,eth,net,web3" \
        --port "30303"  --verbosity 6 console 2>> geth.log
 
 - *identity* : identity of the node on the testnet ;
@@ -82,7 +82,71 @@ other participants' addresses. To see the transactions being taken into account
 only when someone is mining and the blockchain growing is already quite
 educationnal in itself.
 
+A Love Lock contract
+====================
 
+To illustrate the permanency of data stored on the blockchain, we decided to
+implemented `love locks`_. The basic idea is that if two persons mutually agree to
+be linked, they become publicly binded, and that lock cannot be removed.
+
+The solidity source code is pretty straightforward :
+
+.. code-block:: none
+
+   contract EthLove {
+     mapping (address => address) public links;
+
+     function EthLove() {}
+
+     function link(address with) {
+       if (links[msg.sender] != 0) throw;
+       links[msg.sender] = with;
+     }
+
+     function areLinked(address a, address b) returns (bool) {
+       return (links[a] == b && links[b] == a);
+     }
+   }
+
+
+We have a public mapping storing people's intention of associating with someone
+else (using the ``link()`` method) and we consider two person bound if they
+published mutual intentions. Note how divorces are not allowed with the use of
+``throw`` ; No sir, not in this contract.
+
+Publish this contract using Mist & import it into geth (look into
+`are_linked.js`_ for some inspiration ; geth have a very useful ``loadScript()``
+function that loads a js file and executes it).
+
+Take a moment to consider how the contract methods differs :
+
+- ``link()`` changes the internal state of the blockchain-based database and as
+  such requires a proper transaction that will need to be included into a new
+  block by a miner and thus will cost gas.
+
+- ``areLinked()`` leaves the database untouched, and can be called locally in
+  the geth console, without the need to publish a transaction.
+
+As a matter of fact, the link check can be done by reading inside the mapping
+directly (``areLinked()`` function in `are_linked.js`_). It is however
+interesting to note that by using the contract function locally we execute code
+that we read on the blockchain, that is public, immutable and that allow us to
+describe without ambiguity what we mean by *linked*.
+
+The diamond
+===========
+
+An important part of a love lock is throwing the key away. Luckily Ethereum
+don't lack keys.
+
+In addition to the linking above, we had people send ether to an address
+obtained by XOR'ing the couple's addresses (the code is in `are_linked.js`_
+too). Since the private key needed to transfer the ether from the resulting
+adresse has no cryptographic chance to exist, those Ether are in effect an
+everlasting token of love, that you can put a price tag on.
+
+.. _are_linked.js: https://github.com/colibriste/ethereum/blob/master/01_ethlove/are_linked.js
 .. _geth: https://github.com/ethereum/go-ethereum/releases
 .. _La Main: https://lamaincollectif.wordpress.com/
+.. _love locks: https://en.wikipedia.org/wiki/Love_lock
 .. _Mist: https://github.com/ethereum/mist/releases
