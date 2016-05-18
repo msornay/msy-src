@@ -4,11 +4,14 @@
 
 :date: 2016-05-12 20:00
 :category: ethereum
-:status: draft
+:status: published
 
 We had our first Ethereum workshop at `La Main`_. Some people there had never
 heard about Ethereum before, the goal was to guide them in setting up geth /
 Mist on a private testnet on a LAN, and have them interact with a simple smart contract.
+
+All the source code is `here`_
+
 
 Setting up a private testnet
 ============================
@@ -145,8 +148,10 @@ too). Since the private key needed to transfer the ether from the resulting
 adresse has no cryptographic chance to exist, those Ether are in effect an
 everlasting token of love, that you can put a price tag on.
 
+
 .. _are_linked.js: https://github.com/colibriste/ethereum/blob/master/01_ethlove/are_linked.js
 .. _geth: https://github.com/ethereum/go-ethereum/releases
+.. _here: https://github.com/colibriste/ethereum/tree/master/01_ethlove
 .. _La Main: https://lamaincollectif.wordpress.com/
 .. _love locks: https://en.wikipedia.org/wiki/Love_lock
 .. _Mist: https://github.com/ethereum/mist/releases

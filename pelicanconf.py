@@ -19,15 +19,23 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
+STATIC_PATHS = ['images', 'extra/favicon.ico']
+EXTRA_PATH_METADATA = {
+    'extra/favicon.ico': {'path': 'favicon.ico'}
+}
+
 # Blogroll
-LINKS = (
-    ('Pelican', 'http://getpelican.com/'),
-    ('Python.org', 'http://python.org/'),
-    ('Jinja2', 'http://jinja.pocoo.org/'),
-)
+LINKS = ()
 
 # Social widget
-SOCIAL = ()
+SOCIAL = (
+    ('twitter', 'https://twitter.com/lechfeck'),
+    ('linkedin', 'https://fr.linkedin.com/in/mathieu-sornay-2874098b'),
+    ('github', 'https://github.com/msornay')
+)
+
+TWITTER_USERNAME = 'lechfeck'
+
 DEFAULT_PAGINATION = False
 
 # Uncomment following line if you want document-relative URLs when developing
