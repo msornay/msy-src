@@ -4,7 +4,7 @@ No-Nonsense Ethereum Mining Rig
 
 :date: 2016-05-18 20:00
 :category: ethereum
-:status: draft
+:status: published
 
 
 This article is the first element of a set of tools/tutorials that aims to make
@@ -12,10 +12,6 @@ mining Ether with free software painless and secure. Given the number of
 conflicting / outdated / plain wrong instructions we_ found online when setting
 up our own rigs, we think that there is room for something minimal, easy and
 up-to-date.
-
-Moreover some people are selling this kind of configuration (no, i'm not
-linking) on pre-installed SSDs. Look at the scripts below, I don't think it is
-worth what they are asking for.
 
 The instructions here are kind of raw, we are working on making this accessible
 to first-time linux users. In the mean time, here what we suggest (if you are
